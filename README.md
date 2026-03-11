@@ -17,7 +17,7 @@
 
 ## 项目简介
 
-rkmoney 是一个简洁高效的资产价值管理系统，采用日均价值计算方式，帮助你直观地了解每项资产的价值消耗情况。无论是数码产品、生活用品还是理财投资，都能在这里得到清晰的记录和分析。
+rkmoney 是我想看到自己买贵重物品平摊到每天花了多少钱，与ai开发的本地应用，鉴于国内某些App售价昂贵，索性自己开发一个简单的。
 
 ## 核心功能
 
@@ -177,26 +177,8 @@ npm run dev
 - [ ] 资产搜索和筛选
 - [ ] 自定义资产类型和图标
 
-## 🔧 常见问题
 
-### 1. 端口已被占用
-
-如果 8000 或 5173 端口已被占用，可以修改配置：
-- 后端：编辑 `backend/main.py` 中的 `uvicorn.run()` 端口
-- 前端：编辑 `frontend/vite.config.ts` 中的端口配置
-
-### 2. 依赖安装缓慢
-
-可以使用国内镜像源：
-```bash
-# Python 镜像
-pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
-
-# Node.js 镜像
-npm config set registry https://registry.npmmirror.com
-```
-
-### 3. 数据库重置
+### 数据库重置
 
 如需重置数据库，删除 `backend/` 目录下的 `rkmoney.db` 文件后重新启动即可。
 
