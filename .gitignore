@@ -1,0 +1,47 @@
+# Go
+*.exe
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+*.prof
+bin/
+obj/
+pkg/
+*.log
+go.sum
+.DS_Store
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+data/
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+frontend/.env.local
+frontend/.env.*.local
+frontend/coverage/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# 其他
+./开发计划/*
