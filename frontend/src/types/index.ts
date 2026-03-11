@@ -30,6 +30,21 @@ export interface AssetUpdate {
   sold_price?: number;
 }
 
+export interface AssetType {
+  id: number;
+  name: string;
+  icon: string;
+  color?: string;
+  is_custom: number;
+  created_at: string;
+}
+
+export interface AssetTypeCreate {
+  name: string;
+  icon: string;
+  color?: string;
+}
+
 export interface PriceRecord {
   id: number;
   asset_id: number;

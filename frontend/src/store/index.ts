@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import api from '../api'
-import type { Asset, AssetCreate, ApiResponse } from '../types'
+import type { Asset, AssetCreate, AssetUpdate, ApiResponse } from '../types'
 
 export const useAssetStore = defineStore('asset', {
   state: () => ({
@@ -26,6 +26,19 @@ export const useAssetStore = defineStore('asset', {
       try {
         const response = await api.post<ApiResponse<Asset>>('/assets', asset)
         this.assets.push(response.data.data)
+        return response.data.data
+      } catch (err: any) {
+        throw err
+      }
+    },
+
+    async updateAsset(id: number, asset: AssetUpdate) {
+      try {
+        const response = await api.put<ApiResponse<Asset>>(`/assets/${id}`, asset)
+        const index = this.assets.findIndex(a => a.id === id)
+        if (index !== -1) {
+          this.assets[index] = response.data.data
+        }
         return response.data.data
       } catch (err: any) {
         throw err

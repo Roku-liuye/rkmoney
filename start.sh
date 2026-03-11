@@ -21,6 +21,12 @@ echo "✅ Python 版本: $(python --version 2>&1 | cut -d' ' -f2)"
 echo "✅ Node.js 版本: $(node --version 2>&1 | cut -d' ' -f2)"
 echo ""
 
+# 获取本机局域网 IP
+LAN_IP=$(ipconfig getifaddr en0 2>/dev/null || hostname -I 2>/dev/null | awk '{print $1}')
+if [ -z "$LAN_IP" ]; then
+    LAN_IP="<您的局域网IP>"
+fi
+
 # 启动后端
 echo "🚀 正在启动后端服务..."
 cd backend
@@ -36,7 +42,7 @@ echo "🔧 初始化数据库..."
 python -c "from database import engine; from models import Base; Base.metadata.create_all(bind=engine)" > /dev/null 2>&1
 
 echo "▶️  启动后端服务器 (http://localhost:8000)..."
-uvicorn main:app --reload &
+uvicorn main:app --reload --host 0.0.0.0 &
 BACKEND_PID=$!
 cd ..
 
@@ -62,7 +68,9 @@ echo "========================================"
 echo "  ✅ 服务启动成功！"
 echo "========================================"
 echo "  🌐 前端地址: http://localhost:5173"
+echo "  🌐 局域网:   http://${LAN_IP}:5173"
 echo "  🔌 后端地址: http://localhost:8000"
+echo "  🔌 局域网:   http://${LAN_IP}:8000"
 echo "  📖 API文档: http://localhost:8000/docs"
 echo "========================================"
 echo ""

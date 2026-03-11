@@ -113,3 +113,38 @@ class DailyValueResponse(BaseModel):
 class SuccessResponse(BaseModel):
     code: int
     data: Optional[dict] = None
+
+
+class AssetTypeBase(BaseModel):
+    name: str
+    icon: str
+    color: Optional[str] = "gray"
+
+
+class AssetTypeCreate(AssetTypeBase):
+    pass
+
+
+class AssetTypeUpdate(BaseModel):
+    name: Optional[str] = None
+    icon: Optional[str] = None
+    color: Optional[str] = None
+
+
+class AssetType(AssetTypeBase):
+    id: int
+    is_custom: int
+    created_at: str
+
+    class Config:
+        from_attributes = True
+
+
+class AssetTypeResponse(BaseModel):
+    code: int
+    data: AssetType
+
+
+class AssetTypesResponse(BaseModel):
+    code: int
+    data: List[AssetType]

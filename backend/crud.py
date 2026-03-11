@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 from datetime import datetime, timedelta
-from models import Asset, PriceRecord
-from schemas import AssetCreate, AssetUpdate, PriceRecordCreate
+from models import Asset, PriceRecord, AssetType
+from schemas import AssetCreate, AssetUpdate, PriceRecordCreate, AssetTypeCreate
 
 
 def calculate_daily_value(asset: Asset) -> float:
@@ -126,3 +126,50 @@ def sell_asset(db: Session, asset_id: int, sold_date: datetime, sold_price: floa
     db.refresh(db_asset)
     db_asset.daily_value = calculate_daily_value(db_asset)
     return db_asset
+
+
+def get_asset_types(db: Session, skip: int = 0, limit: int = 100, include_custom: bool = True):
+    query = db.query(AssetType)
+    if not include_custom:
+        query = query.filter(AssetType.is_custom == 0)
+    types = query.offset(skip).limit(limit).all()
+    return types
+
+
+def get_asset_type(db: Session, type_id: int):
+    return db.query(AssetType).filter(AssetType.id == type_id).first()
+
+
+def create_asset_type(db: Session, type_data: AssetTypeCreate):
+    db_type = AssetType(
+        name=type_data.name,
+        icon=type_data.icon,
+        color=type_data.color or "gray",
+        is_custom=1
+    )
+    db.add(db_type)
+    db.commit()
+    db.refresh(db_type)
+    return db_type
+
+
+def update_asset_type(db: Session, type_id: int, type_data: AssetTypeCreate):
+    db_type = db.query(AssetType).filter(AssetType.id == type_id).first()
+    if not db_type:
+        return None
+
+    update_data = type_data.model_dump(exclude_unset=True)
+    for key, value in update_data.items():
+        setattr(db_type, key, value)
+
+    db.commit()
+    db.refresh(db_type)
+    return db_type
+
+
+def delete_asset_type(db: Session, type_id: int):
+    db_type = db.query(AssetType).filter(AssetType.id == type_id).first()
+    if db_type:
+        db.delete(db_type)
+        db.commit()
+    return db_type

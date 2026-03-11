@@ -101,3 +101,37 @@ def calculate_daily_value(req: schemas.DailyValueRequest, db: Session = Depends(
         daily_value = req.amount / days
 
     return schemas.DailyValueResponse(code=200, data={"daily_value": daily_value})
+
+
+@app.get("/api/types", response_model=schemas.AssetTypesResponse)
+def read_asset_types(db: Session = Depends(get_db)):
+    types = crud.get_asset_types(db, include_custom=False)
+    return schemas.AssetTypesResponse(code=200, data=types)
+
+
+@app.get("/api/types/custom", response_model=schemas.AssetTypesResponse)
+def read_custom_asset_types(db: Session = Depends(get_db)):
+    types = crud.get_asset_types(db, include_custom=True)
+    return schemas.AssetTypesResponse(code=200, data=types)
+
+
+@app.post("/api/types", response_model=schemas.AssetTypeResponse, status_code=201)
+def create_asset_type(type_data: schemas.AssetTypeCreate, db: Session = Depends(get_db)):
+    db_type = crud.create_asset_type(db, type_data)
+    return schemas.AssetTypeResponse(code=201, data=db_type)
+
+
+@app.put("/api/types/{type_id}", response_model=schemas.AssetTypeResponse)
+def update_asset_type(type_id: int, type_data: schemas.AssetTypeCreate, db: Session = Depends(get_db)):
+    db_type = crud.update_asset_type(db, type_id=type_id, type_data=type_data)
+    if db_type is None:
+        raise HTTPException(status_code=404, detail="Asset type not found")
+    return schemas.AssetTypeResponse(code=200, data=db_type)
+
+
+@app.delete("/api/types/{type_id}", response_model=schemas.SuccessResponse)
+def delete_asset_type(type_id: int, db: Session = Depends(get_db)):
+    db_type = crud.delete_asset_type(db, type_id=type_id)
+    if db_type is None:
+        raise HTTPException(status_code=404, detail="Asset type not found")
+    return schemas.SuccessResponse(code=200)

@@ -47,7 +47,7 @@ echo 🔧 初始化数据库...
 python -c "from database import engine; from models import Base; Base.metadata.create_all(bind=engine)" > nul 2>&1
 
 echo ▶️  启动后端服务器 (http://localhost:8000)...
-start "rkmoney-backend" uvicorn main:app --reload
+start "rkmoney-backend" uvicorn main:app --reload --host 0.0.0.0
 cd ..
 
 timeout /t 3 /nobreak > nul
@@ -62,7 +62,7 @@ if not exist "node_modules" (
 )
 
 echo ▶️  启动前端开发服务器 (http://localhost:5173)...
-start "rkmoney-frontend" npm run dev
+start "rkmoney-frontend" npx vite --host 0.0.0.0 --port 5173
 cd ..
 
 echo.

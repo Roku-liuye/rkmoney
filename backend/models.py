@@ -33,3 +33,14 @@ class PriceRecord(Base):
     updated_at = Column(String, default=datetime.utcnow().isoformat())
 
     asset = relationship("Asset", back_populates="prices")
+
+
+class AssetType(Base):
+    __tablename__ = "asset_types"
+
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, unique=True, index=True)
+    icon = Column(String)
+    color = Column(String, default="gray")
+    is_custom = Column(Integer, default=0)
+    created_at = Column(String, default=datetime.utcnow().isoformat())
