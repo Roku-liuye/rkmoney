@@ -1,84 +1,205 @@
-# rkmoney
+# 🪙 rkmoney
 
-资产价值管理应用
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.8+-blue.svg" />
+  <img src="https://img.shields.io/badge/Vue-3.5+-green.svg" />
+  <img src="https://img.shields.io/badge/FastAPI-0.115+-orange.svg" />
+</p>
+
+> 资产价值管理应用 - 帮助你追踪和管理个人资产的价值消耗
+
+<p align="center">
+  <a href="#-快速开始">快速开始</a> •
+  <a href="#-核心功能">核心功能</a> •
+  <a href="#-项目结构">项目结构</a> •
+  <a href="#-常见问题">常见问题</a>
+</p>
+
+## 项目简介
+
+rkmoney 是一个简洁高效的资产价值管理系统，采用日均价值计算方式，帮助你直观地了解每项资产的价值消耗情况。无论是数码产品、生活用品还是理财投资，都能在这里得到清晰的记录和分析。
+
+## 核心功能
+
+- ✅ **资产添加与管理** - 支持添加资产名称、金额、类型和购买日期
+- ✅ **日均价值计算** - 智能计算资产的日均价值消耗（金额/持有天数）
+- ✅ **资产售出记录** - 记录售出日期和价格，自动更新日均价值
+- ✅ **资产分类管理** - 支持数码、生活、理财、其他等分类
+- ✅ **数据持久化** - 基于 SQLite 的数据库存储，数据安全可靠
+- ✅ **响应式设计** - 完美适配桌面端和移动端
+
+## 技术栈
+
+### 后端
+- **FastAPI** - 现代化的 Python Web 框架
+- **SQLAlchemy** - Python ORM 框架
+- **Pydantic** - 数据验证和设置管理
+- **SQLite** - 轻量级数据库
+
+### 前端
+- **Vue 3** - 渐进式 JavaScript 框架
+- **TypeScript** - JavaScript 的超集
+- **Pinia** - Vue 的状态管理
+- **Vue Router** - 路由管理
+- **Tailwind CSS** - 原子化 CSS 框架
+- **Axios** - HTTP 客户端
+- **Lucide Vue Next** - 图标库
+- **Day.js** - 日期处理库
 
 ## 项目结构
 
 ```
 rkmoney/
 ├── backend/          # FastAPI 后端
-│   ├── main.py       # 主应用文件
-│   ├── models.py     # 数据模型
-│   ├── schemas.py    # Pydantic 模型
-│   ├── crud.py       # 数据库操作
-│   ├── database.py   # 数据库连接
+│   ├── main.py       # 主应用文件，API 路由定义
+│   ├── models.py     # 数据库模型（Asset, PriceRecord）
+│   ├── schemas.py    # Pydantic 数据验证模型
+│   ├── crud.py       # 数据库 CRUD 操作
+│   ├── database.py   # 数据库连接配置
 │   ├── requirements.txt
-│   └── .env
+│   └── .env.example
 ├── frontend/         # Vue 3 前端
-│   └── src/
-└── 开发计划/          # 开发文档
+│   ├── src/
+│   │   ├── api/      # API 请求封装
+│   │   ├── store/    # Pinia 状态管理
+│   │   ├── views/    # 页面组件
+│   │   ├── components/ # 可复用组件
+│   │   ├── types/    # TypeScript 类型定义
+│   │   └── router/   # 路由配置
+│   └── public/
+├── 开发计划/          # 项目文档和规划
+└── README.md
 ```
 
-## 快速开始
+## 🚀 快速开始
 
 ### 前置要求
 
 - Python 3.8+
 - Node.js 20+
-- SQLite (已包含在 Python 中)
+- npm 或 pnpm
 
-### 安装和运行
+### 一键启动（推荐）
 
-#### 1. 安装后端依赖
+项目提供了便捷的一键启动脚本，支持 Windows、macOS 和 Linux。
+
+#### Windows
+
+双击运行 `start.bat` 文件，脚本将自动：
+- ✅ 检查 Python 和 Node.js 环境
+- ✅ 创建虚拟环境并安装依赖
+- ✅ 初始化数据库
+- ✅ 启动后端和前端服务
+
+#### macOS / Linux
+
+```bash
+chmod +x start.sh
+./start.sh
+```
+
+脚本将自动完成所有初始化步骤并启动服务。
+
+### 手动运行（高级用户）
+
+#### 1. 克隆项目
+
+```bash
+git clone <repository-url>
+cd rkmoney
+```
+
+#### 2. 运行后端
 
 ```bash
 cd backend
+
+# 安装依赖
 pip install -r requirements.txt
-```
 
-#### 2. 配置环境变量
+# 初始化数据库
+python -c "from database import engine; from models import Base; Base.metadata.create_all(bind=engine)"
 
-复制 `.env.example` 到 `.env` 并根据需要修改：
-
-```bash
-cp .env.example .env
-```
-
-#### 3. 运行后端
-
-```bash
-cd backend
-python -m venv venv
-source venv/bin/activate  # Windows: venv\Scripts\activate
-pip install -r requirements.txt
+# 运行开发服务器
 uvicorn main:app --reload
 ```
 
 后端将在 http://localhost:8000 运行
 
-#### 4. 安装前端依赖
+#### 3. 运行前端
 
 ```bash
 cd frontend
+
+# 安装依赖
 npm install
-```
 
-#### 5. 运行前端
-
-```bash
-cd frontend
+# 运行开发服务器
 npm run dev
 ```
 
 前端将在 http://localhost:5173 运行
 
-## API 文档
+## 📖 API 文档
 
-后端运行后访问 http://localhost:8000/docs 查看自动生成的 API 文档
+后端运行后访问 http://localhost:8000/docs 查看自动生成的交互式 API 文档
 
-## 主要功能
+## 日均价值计算规则
 
-- 资产管理（添加、编辑、删除、售出）
-- 资产价格记录
-- 日均价值计算
-- 资产类型管理
+```
+日均价值 = 购买金额 / 持有天数
+
+其中：
+- 持有天数 = 当前日期 - 购买日期
+- 如果当前日期 = 购买日期，持有天数 = 1
+- 已售出资产：日均价值 = (购买金额 - 售出价格) / 持有天数
+```
+
+## 主要 API 端点
+
+| 端点 | 方法 | 描述 |
+|------|------|------|
+| `/api/assets` | GET | 获取所有资产 |
+| `/api/assets` | POST | 创建新资产 |
+| `/api/assets/{id}` | GET | 获取单个资产 |
+| `/api/assets/{id}` | PUT | 更新资产信息 |
+| `/api/assets/{id}` | DELETE | 删除资产 |
+| `/api/assets/{id}/sell` | POST | 标记资产为售出 |
+| `/api/assets/{id}/prices` | POST | 添加价格记录 |
+| `/api/calculate-daily-value` | POST | 计算日均价值 |
+
+## 📝 开发计划
+
+- [ ] 资产价格历史记录
+- [ ] 资产分类统计
+- [ ] 数据导出功能（Excel/CSV）
+- [ ] 多设备同步
+- [ ] 资产搜索和筛选
+- [ ] 自定义资产类型和图标
+
+## 🔧 常见问题
+
+### 1. 端口已被占用
+
+如果 8000 或 5173 端口已被占用，可以修改配置：
+- 后端：编辑 `backend/main.py` 中的 `uvicorn.run()` 端口
+- 前端：编辑 `frontend/vite.config.ts` 中的端口配置
+
+### 2. 依赖安装缓慢
+
+可以使用国内镜像源：
+```bash
+# Python 镜像
+pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
+
+# Node.js 镜像
+npm config set registry https://registry.npmmirror.com
+```
+
+### 3. 数据库重置
+
+如需重置数据库，删除 `backend/` 目录下的 `rkmoney.db` 文件后重新启动即可。
+
+## 👨‍💻 作者
+
+roku-liuye

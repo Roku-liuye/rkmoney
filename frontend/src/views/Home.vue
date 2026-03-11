@@ -119,8 +119,8 @@ const getDaysSincePurchase = (purchaseDate: string) => {
     <!-- Header -->
     <header class="flex justify-between items-end mb-12">
       <div>
-        <h1 class="text-3xl font-bold tracking-tight text-gray-900 mb-2">rkmoney</h1>
-        <p class="text-gray-500 font-medium">资产价值管理系统</p>
+        <h1 class="text-3xl font-bold tracking-tight text-gray-900 mb-2">Rkmoney</h1>
+        <p class="text-gray-500 font-medium">资产价值记录系统</p>
       </div>
       <button 
         @click="showAddModal = true"
