@@ -229,20 +229,20 @@ const getColorClass = (color: string) => {
     <!-- Header -->
     <header class="flex justify-between items-end mb-6 sm:mb-12">
       <div>
-        <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-gray-900 mb-1 sm:mb-2">RkMoney</h1>
-        <p class="text-gray-500 font-medium text-sm sm:text-base">记录你的物品价值</p>
+        <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-gray-900 dark:text-white mb-1 sm:mb-2">RkMoney</h1>
+        <p class="text-gray-500 dark:text-gray-400 font-medium text-sm sm:text-base">记录你的物品价值</p>
       </div>
       <div class="flex items-center gap-2 sm:gap-3">
         <button 
           @click="showTypeManager = true"
-          class="text-gray-600 hover:text-black px-3 py-2 sm:px-4 sm:py-2 rounded-lg hover:bg-gray-100 transition-all flex items-center gap-1.5 sm:gap-2"
+          class="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white px-3 py-2 sm:px-4 sm:py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-all flex items-center gap-1.5 sm:gap-2"
         >
           <Package :size="16" />
           <span class="font-medium text-sm">分类</span>
         </button>
         <button 
           @click="showAddModal = true"
-          class="bg-black text-white px-4 py-2 sm:px-6 sm:py-2.5 rounded-full flex items-center gap-1.5 sm:gap-2 hover:bg-gray-800 transition-all shadow-sm active:scale-95"
+          class="bg-black dark:bg-white text-white dark:text-black px-4 py-2 sm:px-6 sm:py-2.5 rounded-full flex items-center gap-1.5 sm:gap-2 hover:bg-gray-800 dark:hover:bg-gray-200 transition-all shadow-sm active:scale-95"
         >
           <Plus :size="16" />
           <span class="font-medium text-sm">新增</span>
@@ -252,47 +252,47 @@ const getColorClass = (color: string) => {
 
     <!-- Stats -->
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-6 sm:mb-12">
-      <div class="bg-gray-50 p-5 sm:p-8 rounded-2xl sm:rounded-3xl border border-gray-100">
-        <div class="flex items-center gap-2 text-gray-400 mb-2 sm:mb-3">
+      <div class="bg-gray-50 dark:bg-gray-800 p-5 sm:p-8 rounded-2xl sm:rounded-3xl border border-gray-100 dark:border-gray-700">
+        <div class="flex items-center gap-2 text-gray-400 dark:text-gray-500 mb-2 sm:mb-3">
           <TrendingUp :size="14" />
           <span class="text-[10px] sm:text-xs font-bold uppercase tracking-widest">日均消耗</span>
         </div>
-        <div class="text-2xl sm:text-4xl font-bold tracking-tight">{{ formatCurrency(totalDailyValue) }}</div>
+        <div class="text-2xl sm:text-4xl font-bold tracking-tight dark:text-white">{{ formatCurrency(totalDailyValue) }}</div>
       </div>
-      <div class="bg-gray-50 p-5 sm:p-8 rounded-2xl sm:rounded-3xl border border-gray-100">
-        <div class="flex items-center gap-2 text-gray-400 mb-2 sm:mb-3">
+      <div class="bg-gray-50 dark:bg-gray-800 p-5 sm:p-8 rounded-2xl sm:rounded-3xl border border-gray-100 dark:border-gray-700">
+        <div class="flex items-center gap-2 text-gray-400 dark:text-gray-500 mb-2 sm:mb-3">
           <Package :size="14" />
           <span class="text-[10px] sm:text-xs font-bold uppercase tracking-widest">持有资产</span>
         </div>
-        <div class="text-2xl sm:text-4xl font-bold tracking-tight">{{ store.assets.filter(a => !a.sold_date).length }}</div>
+        <div class="text-2xl sm:text-4xl font-bold tracking-tight dark:text-white">{{ store.assets.filter(a => !a.sold_date).length }}</div>
       </div>
     </div>
 
     <!-- Section Title -->
     <div class="flex items-center justify-between mb-4 sm:mb-6">
-      <h2 class="text-lg sm:text-xl font-bold text-gray-900">资产列表</h2>
-      <div class="text-xs sm:text-sm text-gray-400">共 {{ store.assets.length }} 个</div>
+      <h2 class="text-lg sm:text-xl font-bold text-gray-900 dark:text-white">资产列表</h2>
+      <div class="text-xs sm:text-sm text-gray-400 dark:text-gray-500">共 {{ store.assets.length }} 个</div>
     </div>
 
     <!-- Asset List -->
     <div v-if="store.loading" class="flex justify-center py-12">
-      <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-black"></div>
+      <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-black dark:border-white"></div>
     </div>
 
-    <div v-else-if="store.assets.length === 0" class="text-center py-12 sm:py-20 bg-gray-50 rounded-2xl sm:rounded-3xl border border-dashed border-gray-200">
-      <div class="text-gray-400 mb-3 sm:mb-4 text-sm sm:text-base">暂无资产</div>
-      <button @click="showAddModal = true" class="text-black font-bold hover:underline text-sm sm:text-base">点击添加</button>
+    <div v-else-if="store.assets.length === 0" class="text-center py-12 sm:py-20 bg-gray-50 dark:bg-gray-800 rounded-2xl sm:rounded-3xl border border-dashed border-gray-200 dark:border-gray-700">
+      <div class="text-gray-400 dark:text-gray-500 mb-3 sm:mb-4 text-sm sm:text-base">暂无资产</div>
+      <button @click="showAddModal = true" class="text-black dark:text-white font-bold hover:underline text-sm sm:text-base">点击添加</button>
     </div>
 
     <div v-else class="space-y-4">
       <div 
         v-for="asset in store.assets" 
         :key="asset.id"
-        class="group bg-white p-4 sm:p-6 rounded-2xl sm:rounded-3xl border border-gray-100 hover:border-gray-300 hover:shadow-xl transition-all flex items-center gap-3 sm:gap-6"
+        class="group bg-white dark:bg-gray-800 p-4 sm:p-6 rounded-2xl sm:rounded-3xl border border-gray-100 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 hover:shadow-xl transition-all flex items-center gap-3 sm:gap-6"
         :class="{'opacity-60 grayscale-[0.5]': asset.sold_date}"
       >
         <!-- Icon -->
-        <div class="h-11 w-11 sm:h-14 sm:w-14 bg-gray-50 rounded-xl sm:rounded-2xl flex items-center justify-center text-gray-400 group-hover:bg-black group-hover:text-white transition-all duration-300 flex-shrink-0">
+        <div class="h-11 w-11 sm:h-14 sm:w-14 bg-gray-50 dark:bg-gray-700 rounded-xl sm:rounded-2xl flex items-center justify-center text-gray-400 group-hover:bg-black group-hover:text-white transition-all duration-300 flex-shrink-0">
           <component 
             :is="getIconComponent(getTypeIcon(asset))" 
             :size="22" 
@@ -302,10 +302,10 @@ const getColorClass = (color: string) => {
         <!-- Info -->
         <div class="flex-1 min-w-0">
           <div class="flex items-center gap-2 mb-0.5">
-            <h3 class="font-bold text-base sm:text-lg text-gray-900 truncate">{{ asset.name }}</h3>
-            <span v-if="asset.sold_date" class="px-1.5 py-0.5 bg-gray-100 text-gray-500 text-[9px] font-bold rounded-md uppercase flex-shrink-0">已出售</span>
+            <h3 class="font-bold text-base sm:text-lg text-gray-900 dark:text-white truncate">{{ asset.name }}</h3>
+            <span v-if="asset.sold_date" class="px-1.5 py-0.5 bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400 text-[9px] font-bold rounded-md uppercase flex-shrink-0">已出售</span>
           </div>
-          <div class="flex flex-wrap items-center gap-x-3 sm:gap-x-6 gap-y-0.5 text-xs sm:text-sm text-gray-400">
+          <div class="flex flex-wrap items-center gap-x-3 sm:gap-x-6 gap-y-0.5 text-xs sm:text-sm text-gray-400 dark:text-gray-500">
             <span class="flex items-center gap-1 whitespace-nowrap">
               <CircleDollarSign :size="12" />
               {{ formatCurrency(asset.amount) }}
@@ -323,8 +323,8 @@ const getColorClass = (color: string) => {
 
         <!-- Value -->
         <div class="text-right flex-shrink-0">
-          <div class="text-[9px] sm:text-[10px] text-gray-400 uppercase tracking-widest mb-0.5 font-bold">日均</div>
-          <div class="text-lg sm:text-2xl font-black tracking-tighter" :class="asset.sold_date ? 'text-gray-400' : 'text-black'">
+          <div class="text-[9px] sm:text-[10px] text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-0.5 font-bold">日均</div>
+          <div class="text-lg sm:text-2xl font-black tracking-tighter" :class="asset.sold_date ? 'text-gray-400' : 'text-black dark:text-white'">
             {{ formatCurrency(asset.daily_value) }}
           </div>
         </div>
@@ -334,21 +334,21 @@ const getColorClass = (color: string) => {
           <button 
             v-if="!asset.sold_date"
             @click="openSellModal(asset)"
-            class="sm:opacity-0 sm:group-hover:opacity-100 p-1.5 sm:p-2 text-gray-400 hover:text-black hover:bg-gray-100 rounded-lg sm:rounded-xl transition-all"
+            class="sm:opacity-0 sm:group-hover:opacity-100 p-1.5 sm:p-2 text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg sm:rounded-xl transition-all"
             title="标记为出售"
           >
             <Coins :size="16" />
           </button>
           <button 
             @click="openEditModal(asset)"
-            class="sm:opacity-0 sm:group-hover:opacity-100 p-1.5 sm:p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg sm:rounded-xl transition-all"
+            class="sm:opacity-0 sm:group-hover:opacity-100 p-1.5 sm:p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-lg sm:rounded-xl transition-all"
             title="编辑"
           >
             <Edit :size="16" />
           </button>
           <button 
             @click="handleDelete(asset.id)"
-            class="sm:opacity-0 sm:group-hover:opacity-100 p-1.5 sm:p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg sm:rounded-xl transition-all"
+            class="sm:opacity-0 sm:group-hover:opacity-100 p-1.5 sm:p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/30 rounded-lg sm:rounded-xl transition-all"
             title="删除"
           >
             <Trash2 :size="16" />
@@ -359,10 +359,10 @@ const getColorClass = (color: string) => {
 
     <!-- Add Modal -->
     <div v-if="showAddModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-in fade-in duration-300">
-      <div class="bg-white rounded-[32px] w-full max-w-md p-10 shadow-2xl animate-in zoom-in-95 slide-in-from-bottom-10 duration-500">
+      <div class="bg-white dark:bg-gray-800 rounded-[32px] w-full max-w-md p-10 shadow-2xl animate-in zoom-in-95 slide-in-from-bottom-10 duration-500">
         <div class="flex justify-between items-center mb-10">
-          <h2 class="text-3xl font-black tracking-tight">新增资产</h2>
-          <button @click="showAddModal = false" class="p-2 hover:bg-gray-100 rounded-full transition-all">
+          <h2 class="text-3xl font-black tracking-tight dark:text-white">新增资产</h2>
+          <button @click="showAddModal = false" class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-all">
             <X :size="24" />
           </button>
         </div>
@@ -380,7 +380,7 @@ const getColorClass = (color: string) => {
             </div>
             <div class="space-y-2">
               <label class="text-xs font-bold text-gray-400 uppercase tracking-widest ml-1">资产类型</label>
-              <select v-model="newAsset.type" class="w-full text-lg py-3 appearance-none bg-white">
+              <select v-model="newAsset.type" class="w-full text-lg py-3 appearance-none bg-white dark:bg-gray-700">
                 <option v-for="t in allTypes" :key="t.id" :value="t.name">{{ t.name }}</option>
               </select>
             </div>
@@ -393,7 +393,7 @@ const getColorClass = (color: string) => {
 
           <button 
             type="submit" 
-            class="w-full bg-black text-white py-5 rounded-2xl font-black text-lg hover:bg-gray-800 transition-all shadow-lg hover:shadow-xl active:scale-95"
+            class="w-full bg-black dark:bg-white text-white dark:text-black py-5 rounded-2xl font-black text-lg hover:bg-gray-800 dark:hover:bg-gray-200 transition-all shadow-lg hover:shadow-xl active:scale-95"
           >
             确认保存
           </button>
@@ -403,10 +403,10 @@ const getColorClass = (color: string) => {
 
     <!-- Edit Modal -->
     <div v-if="showEditModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-in fade-in duration-300">
-      <div class="bg-white rounded-[32px] w-full max-w-md p-10 shadow-2xl animate-in zoom-in-95 slide-in-from-bottom-10 duration-500">
+      <div class="bg-white dark:bg-gray-800 rounded-[32px] w-full max-w-md p-10 shadow-2xl animate-in zoom-in-95 slide-in-from-bottom-10 duration-500">
         <div class="flex justify-between items-center mb-10">
-          <h2 class="text-3xl font-black tracking-tight">编辑资产</h2>
-          <button @click="showEditModal = false" class="p-2 hover:bg-gray-100 rounded-full transition-all">
+          <h2 class="text-3xl font-black tracking-tight dark:text-white">编辑资产</h2>
+          <button @click="showEditModal = false" class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-all">
             <X :size="24" />
           </button>
         </div>
@@ -424,7 +424,7 @@ const getColorClass = (color: string) => {
             </div>
             <div class="space-y-2">
               <label class="text-xs font-bold text-gray-400 uppercase tracking-widest ml-1">资产类型</label>
-              <select v-model="editAsset.type" class="w-full text-lg py-3 appearance-none bg-white">
+              <select v-model="editAsset.type" class="w-full text-lg py-3 appearance-none bg-white dark:bg-gray-700">
                 <option v-for="t in allTypes" :key="t.id" :value="t.name">{{ t.name }}</option>
               </select>
             </div>
@@ -437,7 +437,7 @@ const getColorClass = (color: string) => {
 
           <button 
             type="submit" 
-            class="w-full bg-black text-white py-5 rounded-2xl font-black text-lg hover:bg-gray-800 transition-all shadow-lg hover:shadow-xl active:scale-95"
+            class="w-full bg-black dark:bg-white text-white dark:text-black py-5 rounded-2xl font-black text-lg hover:bg-gray-800 dark:hover:bg-gray-200 transition-all shadow-lg hover:shadow-xl active:scale-95"
           >
             确认保存
           </button>
@@ -447,13 +447,13 @@ const getColorClass = (color: string) => {
 
     <!-- Sell Modal -->
     <div v-if="showSellModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-in fade-in duration-300">
-      <div class="bg-white rounded-[32px] w-full max-w-md p-10 shadow-2xl animate-in zoom-in-95 slide-in-from-bottom-10 duration-500">
+      <div class="bg-white dark:bg-gray-800 rounded-[32px] w-full max-w-md p-10 shadow-2xl animate-in zoom-in-95 slide-in-from-bottom-10 duration-500">
         <div class="flex justify-between items-center mb-10">
           <div>
-            <h2 class="text-3xl font-black tracking-tight">出售资产</h2>
-            <p class="text-gray-400 text-sm mt-1">记录 {{ selectedAsset?.name }} 的出售信息</p>
+            <h2 class="text-3xl font-black tracking-tight dark:text-white">出售资产</h2>
+            <p class="text-gray-400 dark:text-gray-500 text-sm mt-1">记录 {{ selectedAsset?.name }} 的出售信息</p>
           </div>
-          <button @click="showSellModal = false" class="p-2 hover:bg-gray-100 rounded-full transition-all">
+          <button @click="showSellModal = false" class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-all">
             <X :size="24" />
           </button>
         </div>
@@ -469,13 +469,13 @@ const getColorClass = (color: string) => {
             <input v-model="sellInfo.sold_date" type="date" class="w-full text-lg py-3" required />
           </div>
 
-          <div class="bg-blue-50 p-4 rounded-2xl text-blue-600 text-xs font-medium leading-relaxed">
+          <div class="bg-blue-50 dark:bg-blue-900/30 p-4 rounded-2xl text-blue-600 dark:text-blue-400 text-xs font-medium leading-relaxed">
             出售后，系统将根据购买价与出售价的差额重新计算日均价值消耗。
           </div>
 
           <button 
             type="submit" 
-            class="w-full bg-black text-white py-5 rounded-2xl font-black text-lg hover:bg-gray-800 transition-all shadow-lg hover:shadow-xl active:scale-95"
+            class="w-full bg-black dark:bg-white text-white dark:text-black py-5 rounded-2xl font-black text-lg hover:bg-gray-800 dark:hover:bg-gray-200 transition-all shadow-lg hover:shadow-xl active:scale-95"
           >
             确认出售
           </button>
@@ -485,10 +485,10 @@ const getColorClass = (color: string) => {
 
     <!-- Type Manager Modal -->
     <div v-if="showTypeManager" class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-in fade-in duration-300">
-      <div class="bg-white rounded-[32px] w-full max-w-2xl h-[80vh] flex flex-col animate-in zoom-in-95 slide-in-from-bottom-10 duration-500">
-        <div class="p-6 border-b border-gray-100 flex justify-between items-center">
-          <h2 class="text-2xl font-black tracking-tight">分类管理</h2>
-          <button @click="showTypeManager = false" class="p-2 hover:bg-gray-100 rounded-full transition-all">
+      <div class="bg-white dark:bg-gray-800 rounded-[32px] w-full max-w-2xl h-[80vh] flex flex-col animate-in zoom-in-95 slide-in-from-bottom-10 duration-500">
+        <div class="p-6 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center">
+          <h2 class="text-2xl font-black tracking-tight dark:text-white">分类管理</h2>
+          <button @click="showTypeManager = false" class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-all">
             <X :size="24" />
           </button>
         </div>

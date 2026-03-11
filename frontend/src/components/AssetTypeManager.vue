@@ -129,16 +129,16 @@ const getIconComponent = (iconName: string) => {
 
 const getColorClass = (color: string) => {
   const colorMap: Record<string, string> = {
-    gray: 'bg-gray-100 text-gray-600',
-    blue: 'bg-blue-100 text-blue-600',
-    green: 'bg-green-100 text-green-600',
-    red: 'bg-red-100 text-red-600',
-    yellow: 'bg-yellow-100 text-yellow-600',
-    orange: 'bg-orange-100 text-orange-600',
-    purple: 'bg-purple-100 text-purple-600',
-    pink: 'bg-pink-100 text-pink-600',
-    indigo: 'bg-indigo-100 text-indigo-600',
-    cyan: 'bg-cyan-100 text-cyan-600'
+    gray: 'bg-gray-100 dark:bg-gray-600 text-gray-600 dark:text-gray-300',
+    blue: 'bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400',
+    green: 'bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-400',
+    red: 'bg-red-100 dark:bg-red-900 text-red-600 dark:text-red-400',
+    yellow: 'bg-yellow-100 dark:bg-yellow-900 text-yellow-600 dark:text-yellow-400',
+    orange: 'bg-orange-100 dark:bg-orange-900 text-orange-600 dark:text-orange-400',
+    purple: 'bg-purple-100 dark:bg-purple-900 text-purple-600 dark:text-purple-400',
+    pink: 'bg-pink-100 dark:bg-pink-900 text-pink-600 dark:text-pink-400',
+    indigo: 'bg-indigo-100 dark:bg-indigo-900 text-indigo-600 dark:text-indigo-400',
+    cyan: 'bg-cyan-100 dark:bg-cyan-900 text-cyan-600 dark:text-cyan-400'
   }
   return colorMap[color] || colorMap.gray
 }
@@ -152,14 +152,14 @@ const getColorClass = (color: string) => {
         <h3 class="text-sm font-bold text-gray-400 uppercase tracking-widest ml-1">自定义分类</h3>
         <button 
           @click="showAddModal = true"
-          class="text-xs font-bold text-black hover:underline flex items-center gap-1"
+          class="text-xs font-bold text-black dark:text-white hover:underline flex items-center gap-1"
         >
           <Plus :size="14" />
           <span>新增分类</span>
         </button>
       </div>
 
-      <div v-if="assetTypes.length === 0" class="text-center py-8 bg-gray-50 rounded-2xl border border-dashed border-gray-200 text-gray-400 text-sm">
+      <div v-if="assetTypes.length === 0" class="text-center py-8 bg-gray-50 dark:bg-gray-700 rounded-2xl border border-dashed border-gray-200 dark:border-gray-600 text-gray-400 dark:text-gray-500 text-sm">
         暂无自定义分类
       </div>
 
@@ -167,24 +167,24 @@ const getColorClass = (color: string) => {
         <div 
           v-for="type in assetTypes" 
           :key="type.id"
-          class="bg-white p-4 rounded-2xl border border-gray-100 hover:border-gray-300 hover:shadow-md transition-all group flex items-center justify-between"
+          class="bg-white dark:bg-gray-700 p-4 rounded-2xl border border-gray-100 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500 hover:shadow-md transition-all group flex items-center justify-between"
         >
           <div class="flex items-center gap-4">
             <div :class="['p-3 rounded-xl', getColorClass(type.color)]">
               <component :is="getIconComponent(type.icon)" :size="20" />
             </div>
-            <h3 class="font-bold text-gray-900">{{ type.name }}</h3>
+            <h3 class="font-bold text-gray-900 dark:text-white">{{ type.name }}</h3>
           </div>
           <div class="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
             <button 
               @click="handleEditType(type)"
-              class="p-2 text-gray-400 hover:text-black hover:bg-gray-100 rounded-lg transition-all"
+              class="p-2 text-gray-400 hover:text-black dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-600 rounded-lg transition-all"
             >
               <Edit :size="16" />
             </button>
             <button 
               @click="handleDeleteType(type.id)"
-              class="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all"
+              class="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/30 rounded-lg transition-all"
             >
               <Trash2 :size="16" />
             </button>
@@ -200,22 +200,22 @@ const getColorClass = (color: string) => {
         <div 
           v-for="defaultType in defaultTypes" 
           :key="defaultType.name"
-          class="bg-gray-50 p-4 rounded-2xl border border-transparent flex items-center gap-4"
+          class="bg-gray-50 dark:bg-gray-700 p-4 rounded-2xl border border-transparent flex items-center gap-4"
         >
           <div :class="['p-3 rounded-xl', getColorClass(defaultType.color)]">
             <component :is="getIconComponent(defaultType.icon)" :size="20" />
           </div>
-          <h3 class="font-bold text-gray-900">{{ defaultType.name }}</h3>
+          <h3 class="font-bold text-gray-900 dark:text-white">{{ defaultType.name }}</h3>
         </div>
       </div>
     </div>
 
     <!-- Modals -->
     <div v-if="showAddModal || showEditModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-[60] p-4 animate-in fade-in duration-300">
-      <div class="bg-white rounded-[32px] w-full max-w-md p-10 shadow-2xl animate-in zoom-in-95 slide-in-from-bottom-10 duration-500">
+      <div class="bg-white dark:bg-gray-800 rounded-[32px] w-full max-w-md p-10 shadow-2xl animate-in zoom-in-95 slide-in-from-bottom-10 duration-500">
         <div class="flex justify-between items-center mb-10">
-          <h2 class="text-3xl font-black tracking-tight">{{ showEditModal ? '编辑分类' : '新增分类' }}</h2>
-          <button @click="showAddModal = false; showEditModal = false" class="p-2 hover:bg-gray-100 rounded-full transition-all">
+          <h2 class="text-3xl font-black tracking-tight dark:text-white">{{ showEditModal ? '编辑分类' : '新增分类' }}</h2>
+          <button @click="showAddModal = false; showEditModal = false" class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-all">
             <X :size="24" />
           </button>
         </div>
@@ -228,14 +228,14 @@ const getColorClass = (color: string) => {
 
           <div class="space-y-2">
             <label class="text-xs font-bold text-gray-400 uppercase tracking-widest ml-1">选择图标</label>
-            <div class="grid grid-cols-5 gap-4 max-h-40 overflow-y-auto p-2 border border-gray-100 rounded-2xl">
+            <div class="grid grid-cols-5 gap-4 max-h-40 overflow-y-auto p-2 border border-gray-100 dark:border-gray-600 rounded-2xl">
               <button 
                 v-for="icon in icons" 
                 :key="icon"
                 type="button"
                 @click="newType.icon = icon"
                 class="flex flex-col items-center justify-center p-3 rounded-xl transition-all"
-                :class="newType.icon === icon ? 'bg-black text-white shadow-lg' : 'hover:bg-gray-50 text-gray-400'"
+                :class="newType.icon === icon ? 'bg-black dark:bg-white text-white dark:text-black shadow-lg' : 'hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-400'"
               >
                 <component :is="getIconComponent(icon)" :size="20" />
               </button>
@@ -252,7 +252,7 @@ const getColorClass = (color: string) => {
                 @click="newType.color = color"
                 class="w-10 h-10 rounded-full transition-all border-4 flex items-center justify-center"
                 :class="[
-                  newType.color === color ? 'border-black' : 'border-transparent',
+                  newType.color === color ? 'border-black dark:border-white' : 'border-transparent',
                   getColorClass(color)
                 ]"
               >
@@ -263,7 +263,7 @@ const getColorClass = (color: string) => {
 
           <button 
             type="submit" 
-            class="w-full bg-black text-white py-5 rounded-2xl font-black text-lg hover:bg-gray-800 transition-all shadow-lg hover:shadow-xl active:scale-95"
+            class="w-full bg-black dark:bg-white text-white dark:text-black py-5 rounded-2xl font-black text-lg hover:bg-gray-800 dark:hover:bg-gray-200 transition-all shadow-lg hover:shadow-xl active:scale-95"
           >
             {{ showEditModal ? '保存修改' : '确认添加' }}
           </button>
