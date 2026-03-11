@@ -1,17 +1,27 @@
-# Go
-*.exe
-*.dll
+# Python
+*.py[cod]
+*$py.class
 *.so
-*.dylib
-*.test
-*.out
-*.prof
-bin/
-obj/
-pkg/
-*.log
-go.sum
-.DS_Store
+.Python
+env/
+venv/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+.venv
 
 # Environment variables
 .env
@@ -23,14 +33,6 @@ go.sum
 *.sqlite
 *.sqlite3
 data/
-
-# Frontend
-frontend/node_modules/
-frontend/dist/
-frontend/.vite/
-frontend/.env.local
-frontend/.env.*.local
-frontend/coverage/
 
 # IDE
 .vscode/
